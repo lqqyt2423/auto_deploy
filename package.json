@@ -1,0 +1,23 @@
+{
+  "name": "auto-deploy",
+  "version": "1.0.0",
+  "description": "自动发布脚本",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@ox.bamaying.com:BMW/auto-deploy.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "baiji-glue": "^1.0.6",
+    "body-parser": "^1.17.2",
+    "ejs": "^2.5.7",
+    "express": "^4.15.3",
+    "mongoose": "^4.11.5",
+    "morgan": "^1.8.2"
+  }
+}
