@@ -48,6 +48,30 @@ DeployRecord.statics.log = function() {
   }).catch(e => console.log(e));
 };
 
+DeployRecord.statics.githuplog = function() {
+  return this.find({}).sort('-createAt').limit(20).then(docs => {
+    return docs.map(doc => {
+      let error = JSON.parse(doc.error);
+      let stdout = JSON.parse(doc.stdout);
+      let hook = JSON.parse(doc.hook);
+      let project = JSON.parse(doc.project);
+      return {
+        id: doc._id,
+        createAt: doc.createAt,
+        error: error,
+        changeFileLists: toFileLists(stdout),
+        successCommand: toCommandLists(stdout, project),
+        project: {
+          name: hook.repository.name,
+          branch: hook.repository.default_branch,
+          commitMessage: hook.repository.description,
+          commitAuthor: hook.repository.owner.login
+        }
+      };
+    });
+  }).catch(e => console.log(e));
+};
+
 function toFileLists(stdout) {
   if (stdout.length === 0) return;
   if (stdout[0][0].indexOf('git pull') > -1) {

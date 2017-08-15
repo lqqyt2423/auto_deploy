@@ -4,7 +4,8 @@
   "description": "自动发布脚本",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "NODE_ENV=production node index.js",
+		"build": "NODE_ENV=production pm2 start index.js --name=\"autodeploy\""
   },
   "repository": {
     "type": "git",

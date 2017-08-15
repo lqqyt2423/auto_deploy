@@ -33,14 +33,26 @@ api.post('/', (req, res, next) => {
         }
       }
     }
-  } else {
+  } else if (req.headers['x-github-event'] === 'push') {
+		res.end('ok');
+    handler(projects[0], (err, stdout) => {
+      let deployRecord = new DeployRecord({
+        hook: JSON.stringify(req.body),
+        project: JSON.stringify(projects[0]),
+        stdout: stdout,
+        error: err,
+        createAt: new Date()
+      });
+      deployRecord.save();
+    });
+	} else {
     next();
   }
 });
 
 // return records
 api.get('/list', (req, res) => {
-  DeployRecord.log().then((docs) => res.json(docs));
+  DeployRecord.githuplog().then((docs) => res.json(docs));
 });
 
 module.exports = api;

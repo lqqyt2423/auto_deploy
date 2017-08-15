@@ -1,5 +1,5 @@
 module.exports = {
-  port: 2990,
+  port: 8000,
   database: {
     mongodb: {
       db: 'mongodb://127.0.0.1:27017/auto_deploy',
@@ -11,11 +11,11 @@ module.exports = {
   projects: [
     {
       token: '',
-      name: '',
+      name: 'my_node_server',
       ref: 'refs/heads/master',
-      path: '',
+      path: '/root/code/my_node_server',
       sub: [
-        { path: '', command: ''}
+        { path: '', command: 'NODE_ENV=production pm2 reload app'}
       ]
     }
   ]
